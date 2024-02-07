@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { UserListComponent } from './users/user-list.component';
 import { UserProfileComponent } from './users/user-profile.component';
-import { TodosComponent } from './todos/todos.component';
+import { TodosComponent } from './todos/todos-list.component';
 
 
 const routes: Routes = [
