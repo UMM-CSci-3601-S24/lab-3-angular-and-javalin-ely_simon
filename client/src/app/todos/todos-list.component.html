@@ -1,11 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-<h1>We made it </h1>
-</body>
-</html>
+<div class="flex-row">
+  <div class="flex-1" fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+
+        <div class="flex-row gap-10 flex-wrap">
+
+
+        </div>
+
+        <div class="flex-row gap-10 flex-wrap">
+          <!-- Examples of filtering on the server -->
+
+
+        </div>
+
+        <br>
+
+    </div>
+  </div>
+
+  <div class="flex-row">
+    @if (serverFilteredTodos) {
+      <div class="flex-1" fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" >
+        <div>
+          <mat-nav-list class="user-nav-list">
+            <h3 mat-subheader>Users</h3>
+            @for (todo of this.filteredTodos; track todo._id) {
+              <a mat-list-item [routerLink]="['/users', todo._id]" class="user-list-item">
+                @if (this.todo.avatar) {
+                  <img matListItemAvatar [src]="todo.avatar" alt="Avatar for {{ todo.owner }}">
+                }
+                <span matListItemTitle mat-line class="user-list-name"> {{todo.owner}} </span>
+                <span matListItemLine class="user-list-role"> {{todo.owner}} </span>
+              </a>
+            }
+          </mat-nav-list>
+        </div>
+      </div>
+    } @else {
+      <div class="flex-1" fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="user-error">
+        <mat-error>
+          There was a problem loading the users. Possibly the server is down or perhaps there are network
+          issues.
+        </mat-error>
+        <mat-error>
+          Error message: {{ this.errMsg }}
+        </mat-error>
+        <mat-error>
+          Please wait a bit and try again or start the server.
+        </mat-error>
+      </div>
+    }
+
+        <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
+
+      </div>

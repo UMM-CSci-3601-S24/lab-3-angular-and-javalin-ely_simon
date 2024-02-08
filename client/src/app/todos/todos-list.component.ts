@@ -8,6 +8,9 @@ import { MatSelect } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field';
+import { Todo } from './todo';
+import { Subject } from 'rxjs';
+
 
 @Component({
   selector: 'app-todos-list-component',
@@ -18,5 +21,14 @@ import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/for
   providers: [],
 })
 export class TodosComponent {
+  public serverFilteredTodos: Todo[];
+  public filteredTodos: Todo[];
 
+  public todoStatus: boolean;
+  public todoOwner: string;
+  public todoBodyText: string;
+  public todoCategory: string;
+
+  errMsg='';
+  private ngUnsubscribe = new Subject<void>();
 }
