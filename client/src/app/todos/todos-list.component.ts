@@ -1,8 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Todo, TodoRole } from './todo';
-import { TodoService } from './todo.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatNavList, MatListSubheaderCssMatStyler, MatListItem, MatListItemAvatar, MatListItemTitle, MatListItemLine } from '@angular/material/list';
 
@@ -16,10 +12,10 @@ import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/for
 @Component({
   selector: 'app-todos-list-component',
   standalone: true,
-  imports: [],
+  imports: [MatFormField, MatLabel, MatInput, FormsModule, MatHint, MatSelect, MatOption, MatRadioGroup, MatRadioButton, MatNavList, MatListSubheaderCssMatStyler, MatListItem, RouterLink, MatListItemAvatar, MatListItemTitle, MatListItemLine, MatError],
   templateUrl: 'todos-list.component.html',
   styleUrl: './todos-list.component.scss',
-  imports: [MatFormField, MatLabel, MatInput, FormsModule, MatHint, MatSelect, MatOption, MatRadioGroup, MatRadioButton, MatNavList, MatListSubheaderCssMatStyler, MatListItem, RouterLink, MatListItemAvatar, MatListItemTitle, MatListItemLine, MatError]
+  providers: [],
 })
 export class TodosComponent {
 
