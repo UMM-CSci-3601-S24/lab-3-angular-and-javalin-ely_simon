@@ -32,4 +32,12 @@ export class TodoService {
       params: httpParams,
     })
   }
+
+  filterTodos(todos: Todo[] ): Todo[] {
+    const filteredTodos = todos;
+
+
+
+    return filteredTodos;
+  }
 }

@@ -86,7 +86,7 @@ private ngUnsubscribe = new Subject<void>();
    */
   public updateFilter() {
     this.filteredTodos = this.todoService.filterTodos(
-      this.serverFilteredTodos, { status: this.todoStatus, owner: this.todoOwner, bodyText: this.todoBodyText, category: this.todoCategory }
+      this.serverFilteredTodos,
     );
   }
 
