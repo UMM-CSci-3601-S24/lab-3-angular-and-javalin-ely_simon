@@ -44,32 +44,19 @@ private ngUnsubscribe = new Subject<void>();
    * @param snackBar the `MatSnackBar` used to display feedback
    */
   constructor(private todoService: TodoService, private snackBar: MatSnackBar) {
-    // Nothing here – everything is in the injection parameters.
   }
 
 
   getTodosFromServer(){
-    // A user-list-component is paying attention to userService.getUsers()
-    // (which is an Observable<User[]>).
-    // (For more on Observable, see: https://reactivex.io/documentation/observable.html)
-
-    //role: this.userRole,
-   // age: this.userAge
 
     this.todoService.getTodos({
-      // Filter the users by the role and age specified in the GUI
     }).pipe(
       takeUntil(this.ngUnsubscribe)
     ).subscribe({
-      // Next time we see a change in the Observable<User[]>,
-      // refer to that User[] as returnedUsers here and do the steps in the {}
       next: (returnedTodos) => {
-        // First, update the array of serverFilteredUsers to be the User[] in the observable
         this.serverFilteredTodos = returnedTodos;
-        // Then update the filters for our client-side filtering as described in this method
         this.updateFilter();
       },
-      // If we observe an error in that Observable, put that message in a snackbar so we can learn more
       error: (err) => {
         if (err.error instanceof ErrorEvent) {
           this.errMsg = `Problem in the client – Error: ${err.error.message}`;
@@ -80,11 +67,6 @@ private ngUnsubscribe = new Subject<void>();
     })
   }
 
-
-      /**
-   * Called when the filtering information is changed in the GUI so we can
-   * get an updated list of `filteredUsers`.
-   */
   public updateFilter() {
     this.filteredTodos = this.todoService.filterTodos(
       this.serverFilteredTodos,

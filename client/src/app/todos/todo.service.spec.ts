@@ -5,8 +5,7 @@ import { Todo } from './todo';
 import { TodoService } from './todo.service';
 
 describe('TodoService', () => {
-  // A small collection of test users
-  const testUsers: Todo[] = [
+  const testTodos: Todo[] = [
     {
       _id: 'chris_id',
       owner: 'Chris',
@@ -46,22 +45,24 @@ describe('TodoService', () => {
     httpTestingController.verify();
   });
 
-  describe('getUsers()', () => {
+  describe('getTodos()', () => {
 
-    it('calls `api/users` when `getTodos()` is called with no parameters', () => {
+    it('calls `api/todos` when `getTodos()` is called with no parameters', () => {
       todoService.getTodos().subscribe(
-        users => expect(users).toBe(testUsers)
+        users => expect(users).toBe(testTodos)
       );
 
       const req = httpTestingController.expectOne(todoService.todoUrl);
-      // Check that the request made to that URL was a GET request.
       expect(req.request.method).toEqual('GET');
-      // Check that the request had no query parameters.
       expect(req.request.params.keys().length).toBe(0);
-      // Specify the content of the response to that request. This
-      // triggers the subscribe above, which leads to that check
-      // actually being performed.
-      req.flush(testUsers);
+      req.flush(testTodos);
+    });
+  });
+
+  describe('filterTodos()', () => {
+    it('filters by nothing', () => {
+      const filteredUsers = todoService.filterTodos(testTodos);
+      expect(filteredUsers.length).toBe(3);
     });
   });
 
