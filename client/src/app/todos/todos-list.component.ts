@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatNavList, MatListSubheaderCssMatStyler, MatListItem, MatListItemAvatar, MatListItemTitle, MatListItemLine } from '@angular/material/list';
 
@@ -22,7 +22,7 @@ import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
   styleUrl: './todos-list.component.scss',
   providers: [],
 })
-export class TodosComponent {
+export class TodosComponent implements OnInit, OnDestroy{
 public serverFilteredTodos: Todo[];
 public filteredTodos: Todo[];
 
@@ -73,7 +73,12 @@ private ngUnsubscribe = new Subject<void>();
     );
   }
 
+  ngOnInit(): void {
+    this.getTodosFromServer();
+  }
 
-
-
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 }
