@@ -77,11 +77,18 @@ private ngUnsubscribe = new Subject<void>();
         }
       },
     })
-
-
-
   }
 
+
+      /**
+   * Called when the filtering information is changed in the GUI so we can
+   * get an updated list of `filteredUsers`.
+   */
+  public updateFilter() {
+    this.filteredTodos = this.todoService.filterTodos(
+      this.serverFilteredTodos, { status: this.todoStatus, owner: this.todoOwner, bodyText: this.todoBodyText, category: this.todoCategory }
+    );
+  }
 
 
 
