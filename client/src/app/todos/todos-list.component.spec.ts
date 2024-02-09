@@ -18,6 +18,7 @@ import { MockTodoService } from '../../testing/todo.service.mock';
 import { Todo } from './todo';
 import { TodosComponent } from './todos-list.component';
 import { TodoService } from './todo.service';
+import { Observable } from 'rxjs';
 
 const COMMON_IMPORTS: unknown[] = [
   FormsModule,
@@ -82,5 +83,43 @@ describe('TodosListComponent', () => {
 
   it('contains two todos with category "groceries"', () => {
     expect(todoList.serverFilteredTodos.filter((todo: Todo) => todo.category === 'groceries').length).toBe(2);
+  });
+});
+
+describe('Misbehaving Todo List', () => {
+  let todoList: TodosComponent;
+  let fixture: ComponentFixture<TodosComponent>;
+
+  let todoServiceStub: {
+    getTodos: () => Observable<Todo[]>;
+    getTodosFiltered: () => Observable<Todo[]>;
+  };
+
+  beforeEach(() => {
+    todoServiceStub = {
+      getTodos: () => new Observable(observer => {
+        observer.error('getTodos() Observer generates an error');
+      }),
+      getTodosFiltered: () => new Observable(observer => {
+        observer.error('getTodosFiltered() Observer generates an error');
+      })
+    };
+
+    TestBed.configureTestingModule({
+    imports: [COMMON_IMPORTS, TodosComponent],
+    providers: [{ provide: TodoService, useValue: todoServiceStub }]
+});
+  });
+
+  beforeEach(waitForAsync(() => {
+    TestBed.compileComponents().then(() => {
+      fixture = TestBed.createComponent(TodosComponent);
+      todoList = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+  }));
+
+  it('fails to load users if we do not set up a TodosService', () => {
+    expect(todoList.serverFilteredTodos).toBeUndefined();
   });
 });
