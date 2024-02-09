@@ -68,15 +68,15 @@
     @if (serverFilteredTodos) {
       <div class="flex-1" fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" >
         <div>
-          <mat-nav-list class="user-nav-list">
-            <h3 mat-subheader>Users</h3>
+          <mat-nav-list class="todo-nav-list">
+            <h3 mat-subheader>Todos</h3>
             @for (todo of this.filteredTodos; track todo._id) {
-              <a mat-list-item [routerLink]="['/users', todo._id]" class="user-list-item">
+              <a mat-list-item [routerLink]="['/todos', todo._id]" class="todo-list-item">
                 @if (this.todo.avatar) {
                   <img matListItemAvatar [src]="todo.avatar" alt="Avatar for {{ todo.owner }}">
                 }
-                <span matListItemTitle mat-line class="user-list-name"> {{todo.owner}} </span>
-                <span matListItemLine class="user-list-role"> {{todo.owner}} </span>
+                <span matListItemTitle mat-line class="todo-list-name"> {{todo.owner}} </span>
+                <span matListItemLine class="todo-list-role"> {{todo.owner}} </span>
               </a>
             }
           </mat-nav-list>
@@ -85,7 +85,7 @@
     } @else {
       <div class="flex-1" fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="user-error">
         <mat-error>
-          There was a problem loading the users. Possibly the server is down or perhaps there are network
+          There was a problem loading the todoss. Possibly the server is down or perhaps there are network
           issues.
         </mat-error>
         <mat-error>
