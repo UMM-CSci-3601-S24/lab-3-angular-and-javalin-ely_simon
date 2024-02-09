@@ -14,10 +14,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable } from 'rxjs';
-import { MockTodoService } from '../../testing/user.service.mock';
+import { MockTodoService } from '../../testing/todo.service.mock';
 import { Todo } from './todo';
-import { TodosListComponent } from './todos-list.component';
+import { TodosComponent } from './todos-list.component';
 import { TodoService } from './todo.service';
 
 const COMMON_IMPORTS: unknown[] = [
@@ -39,22 +38,49 @@ const COMMON_IMPORTS: unknown[] = [
 ];
 
 describe('TodosListComponent', () => {
-  let component: TodosListComponent;
-  let fixture: ComponentFixture<TodosListComponent>;
+  let todoList: TodosComponent;
+  let fixture: ComponentFixture<TodosComponent>;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [TodosListComponent],
+    imports: [COMMON_IMPORTS, TodosComponent],
     providers: [{ provide: TodoService, useValue: new MockTodoService() }]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(TodosListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    });
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  beforeEach(waitForAsync(() => {
+    TestBed.compileComponents().then(() => {
+      fixture = TestBed.createComponent(TodosComponent);
+      todoList = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+  }));
+
+  it('contains all the todos', () => {
+    expect(todoList.serverFilteredTodos.length).toBe(3);
+  });
+
+  it('contains a todo with owner "Chris"', () => {
+    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Chris')).toBe(true);
+  });
+
+  it('contains a todo with category "video games"', () => {
+    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.category === 'video games')).toBe(true);
+  });
+
+  it('doesn\'t contain a todo with category "sports"', () => {
+    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.category === 'sports')).toBe(false);
+  });
+
+  it('contains a todo with status "true"', () => {
+    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.status === true)).toBe(true);
+  });
+
+  it('contains a todo with bodyText "sit"', () => {
+    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.bodyText === 'sit')).toBe(true);
+  });
+
+  it('contains two todos with category "groceries"', () => {
+    expect(todoList.serverFilteredTodos.filter((todo: Todo) => todo.category === 'groceries').length).toBe(2);
   });
 });
