@@ -10,12 +10,13 @@ import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field';
 import { Todo } from './todo';
 import { Subject } from 'rxjs';
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 
 
 @Component({
   selector: 'app-todos-list-component',
   standalone: true,
-  imports: [MatFormField, MatLabel, MatInput, FormsModule, MatHint, MatSelect, MatOption, MatRadioGroup, MatRadioButton, MatNavList, MatListSubheaderCssMatStyler, MatListItem, RouterLink, MatListItemAvatar, MatListItemTitle, MatListItemLine, MatError],
+  imports: [ MatCard, MatCardTitle, MatCardContent, MatFormField, MatLabel, MatInput, FormsModule, MatHint, MatSelect, MatOption, MatRadioGroup, MatRadioButton, MatNavList, MatListSubheaderCssMatStyler, MatListItem, RouterLink, MatListItemAvatar, MatListItemTitle, MatListItemLine, MatError],
   templateUrl: 'todos-list.component.html',
   styleUrl: './todos-list.component.scss',
   providers: [],
