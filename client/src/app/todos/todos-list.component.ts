@@ -13,14 +13,16 @@ import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-todos-list-component',
   templateUrl: 'todos-list.component.html',
   styleUrl: './todos-list.component.scss',
-  providers: [],
+  providers: [TodoService, HttpClient],
   standalone: true,
-  imports: [MatCard, MatCardTitle, MatCardContent, MatFormField, MatLabel, MatInput, FormsModule, MatHint, MatSelect, MatOption, MatRadioGroup, MatRadioButton, MatNavList, MatListSubheaderCssMatStyler, MatListItem, RouterLink, MatListItemAvatar, MatListItemTitle, MatListItemLine, MatError],
+  imports: [MatCard, MatCardTitle, MatCardContent, MatFormField, MatLabel, MatInput, FormsModule, MatHint, MatSelect, MatOption, MatRadioGroup, MatRadioButton, MatNavList, MatListSubheaderCssMatStyler, MatListItem, RouterLink, MatListItemAvatar, MatListItemTitle, MatListItemLine, MatError, HttpClientModule],
 })
 export class TodosComponent implements OnInit, OnDestroy{
 public serverFilteredTodos: Todo[];
