@@ -18,14 +18,14 @@ describe('TodoService', () => {
       owner: 'James',
       status: false,
       bodyText: 'sit',
-      category: 'sports'
+      category: 'groceries'
     },
     {
       _id: 'bob_id',
       owner: 'Bob',
       status: true,
       bodyText: 'dress',
-      category: 'sports'
+      category: 'groceries'
     },
   ];
   let todoService: TodoService;
