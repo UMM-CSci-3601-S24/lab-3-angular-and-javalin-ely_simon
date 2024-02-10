@@ -14,6 +14,7 @@ import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 
+
 @Component({
   selector: 'app-todos-list-component',
   templateUrl: 'todos-list.component.html',
@@ -22,6 +23,7 @@ import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
   standalone: true,
   imports: [MatCard, MatCardTitle, MatCardContent, MatFormField, MatLabel, MatInput, FormsModule, MatHint, MatSelect, MatOption, MatRadioGroup, MatRadioButton, MatNavList, MatListSubheaderCssMatStyler, MatListItem, RouterLink, MatListItemAvatar, MatListItemTitle, MatListItemLine, MatError],
 })
+
 export class TodosComponent implements OnInit, OnDestroy{
 public serverFilteredTodos: Todo[];
 public filteredTodos: Todo[];
@@ -33,8 +35,6 @@ public todoCategory: string;
 
 errMsg='';
 private ngUnsubscribe = new Subject<void>();
-
-
 
   /**
    * This constructor injects both an instance of `UserService`
