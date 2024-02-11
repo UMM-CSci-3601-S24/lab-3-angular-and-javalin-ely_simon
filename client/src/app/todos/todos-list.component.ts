@@ -30,7 +30,7 @@ public filteredTodos: Todo[];
 
 public todoStatus: boolean;
 public todoOwner: string;
-public todoBodyText: string;
+public todoBody: string;
 public todoCategory: string;
 
 errMsg='';
@@ -50,6 +50,7 @@ private ngUnsubscribe = new Subject<void>();
   getTodosFromServer(){
 
     this.todoService.getTodos({
+      body: this.todoBody,
     }).pipe(
       takeUntil(this.ngUnsubscribe)
     ).subscribe({
@@ -69,7 +70,7 @@ private ngUnsubscribe = new Subject<void>();
 
   public updateFilter() {
     this.filteredTodos = this.todoService.filterTodos(
-      this.serverFilteredTodos,
+      this.serverFilteredTodos
     );
   }
 

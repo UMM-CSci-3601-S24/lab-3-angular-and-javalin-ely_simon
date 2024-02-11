@@ -49,7 +49,7 @@ describe('TodoService', () => {
 
     it('calls `api/todos` when `getTodos()` is called with no parameters', () => {
       todoService.getTodos().subscribe(
-        users => expect(users).toBe(testTodos)
+        todos => expect(todos).toBe(testTodos)
       );
 
       const req = httpTestingController.expectOne(todoService.todoUrl);
@@ -63,17 +63,17 @@ describe('TodoService', () => {
   describe('Calling getUsers() with parameters correctly forms the HTTP request', () => {
 
     it('correctly calls api/todos with filter parameter \'sit\'', () => {
-      todoService.getTodos({ bodyText: 'sit' }).subscribe(
+      todoService.getTodos({ body: 'sit' }).subscribe(
         todos => expect(todos).toBe(testTodos)
       );
 
       const req = httpTestingController.expectOne(
-        (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('body')
+        (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('contains')
       );
 
       expect(req.request.method).toEqual('GET');
 
-      expect(req.request.params.get('body')).toEqual('sit');
+      expect(req.request.params.get('contains')).toEqual('sit');
 
       req.flush(testTodos);
     });
@@ -84,5 +84,6 @@ describe('TodoService', () => {
       expect(filteredUsers.length).toBe(3);
     });
   });
+});
 
 });
