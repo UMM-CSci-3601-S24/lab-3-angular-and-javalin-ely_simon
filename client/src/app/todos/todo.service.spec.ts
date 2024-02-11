@@ -64,6 +64,13 @@ describe('TodoService', () => {
       const filteredUsers = todoService.filterTodos(testTodos);
       expect(filteredUsers.length).toBe(3);
     });
+
+    it('limits todos displayed', () => {
+      const i = 1;
+      const filteredTodos = todoService.filterTodos(testTodos, { limit: i });
+      // Should only have 1 todo in array
+      expect(filteredTodos.length).toBe(1);
+    });
   });
 
 });
