@@ -82,8 +82,7 @@ describe('TodoService', () => {
     it('filters by nothing', () => {
       const filteredUsers = todoService.filterTodos(testTodos);
       expect(filteredUsers.length).toBe(3);
+      });
     });
   });
-});
-
 });
