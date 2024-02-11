@@ -37,7 +37,7 @@ export class TodoService {
     let filteredTodos = todos;
 
     if (filters.limit && filters.limit < 201 && filters.limit > 0) {
-      filteredTodos = filteredTodos.splice(0, filters.limit);
+      filteredTodos = filteredTodos.slice(0, filters.limit);
     }
 
     return filteredTodos;
