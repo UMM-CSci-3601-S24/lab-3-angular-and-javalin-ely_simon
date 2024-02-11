@@ -57,7 +57,26 @@ describe('TodoService', () => {
       expect(req.request.params.keys().length).toBe(0);
       req.flush(testTodos);
     });
+
   });
+
+  describe('Calling getUsers() with parameters correctly forms the HTTP request', () => {
+
+    it('correctly calls api/todos with filter parameter \'sit\'', () => {
+      todoService.getTodos({ bodyText: 'sit' }).subscribe(
+        todos => expect(todos).toBe(testTodos)
+      );
+
+      const req = httpTestingController.expectOne(
+        (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('body')
+      );
+
+      expect(req.request.method).toEqual('GET');
+
+      expect(req.request.params.get('body')).toEqual('sit');
+
+      req.flush(testTodos);
+    });
 
   describe('filterTodos()', () => {
     it('filters by nothing', () => {
