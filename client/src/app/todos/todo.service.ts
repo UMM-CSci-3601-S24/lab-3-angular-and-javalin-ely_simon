@@ -33,11 +33,14 @@ export class TodoService {
     })
   }
 
-  filterTodos(todos: Todo[] ): Todo[] {
-    const filteredTodos = todos;
+  filterTodos(todos: Todo[], filters: {limit?: number } ): Todo[] {
+    let filteredTodos = todos;
 
-
+    if (filters.limit) {
+      filteredTodos = filteredTodos.splice(0, filters.limit-1);
+    }
 
     return filteredTodos;
   }
+
 }
