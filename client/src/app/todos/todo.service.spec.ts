@@ -61,8 +61,8 @@ describe('TodoService', () => {
 
   describe('filterTodos()', () => {
     it('filters by nothing', () => {
-      const filteredUsers = todoService.filterTodos(testTodos, {});
-      expect(filteredUsers.length).toBe(3);
+      const filteredTodos = todoService.filterTodos(testTodos, {});
+      expect(filteredTodos.length).toBe(3);
     });
 
     it('limits todos displayed', () => {

@@ -32,11 +32,11 @@ export class TodoService {
       params: httpParams,
     })
   }
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
   filterTodos(todos: Todo[], filters: {limit?: number } ): Todo[] {
     let filteredTodos = todos;
 
-    if (filters.limit) {
+    if (filters.limit && filters.limit < 201 && filters.limit > 0) {
       filteredTodos = filteredTodos.splice(0, filters.limit);
     }
 
