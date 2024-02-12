@@ -70,7 +70,7 @@ private ngUnsubscribe = new Subject<void>();
 
   public updateFilter() {
     this.filteredTodos = this.todoService.filterTodos(
-      this.serverFilteredTodos, { limit: this.todoLimit, status: this.todoStatus }
+      this.serverFilteredTodos, { limit: this.todoLimit, status: this.todoStatus, owner: this.todoOwner }
     );
   }
 
