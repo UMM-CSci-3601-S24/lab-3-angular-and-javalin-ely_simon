@@ -93,7 +93,18 @@
                   <span matListItemLine class="todo-list-status"> Incomplete ❌</span>
                 }
                 <span matListItemLine class="todo-list-bodyText"> {{todo.body}}</span>
-                <span matListItemLine class="todo-list-category"> {{todo.category}}</span>
+                @if (this.todo.category === 'groceries') {
+                  <span matListItemLine class="todo-list-status"> Groceries 🛒 </span>
+                }
+                @else if (this.todo.category === 'homework') {
+                  <span matListItemLine class="todo-list-status"> Homework 📚 </span>
+                }
+                @else if (this.todo.category === 'software design') {
+                  <span matListItemLine class="todo-list-status"> Software Design 🖥️ </span>
+                }
+                @else {
+                  <span matListItemLine class="todo-list-category"> Video Games 🎮</span>
+                }
               </a>
             }
           </mat-nav-list>
