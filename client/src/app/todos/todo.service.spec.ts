@@ -57,7 +57,27 @@ describe('TodoService', () => {
       expect(req.request.params.keys().length).toBe(0);
       req.flush(testTodos);
     });
+
+    describe('Calling getTodos() with parameters correctly form the HTTP request', () => {
+
+      it('correctly calls api/users with filter parameter \'category\'', () => {
+        todoService.getTodos({ orderBy: 'category' }).subscribe(
+          todos => expect(todos).toBe(testTodos)
+        )
+
+        const req = httpTestingController.expectOne(
+          (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('orderBy')
+        );
+
+        expect(req.request.method).toEqual('GET');
+        expect(req.request.params.get('orderBy')).toEqual('category');
+
+        req.flush(testTodos);
+      });
+    })
   });
+
+
 
   describe('filterTodos()', () => {
     it('filters by nothing', () => {
