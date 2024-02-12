@@ -53,7 +53,8 @@ private ngUnsubscribe = new Subject<void>();
 
     this.todoService.getTodos({
       orderBy: this.todoOrderBy,
-      body: this.todoBody
+      body: this.todoBody,
+      category: this.todoCategory
     }).pipe(
       takeUntil(this.ngUnsubscribe)
     ).subscribe({
