@@ -89,5 +89,16 @@ describe('TodoService', () => {
         expect(todo.status === todoStatus);
       })
     });
+
+    it('filters by owner Bob', () => {
+      const todoOwner = 'Bob';
+      const filteredTodos = todoService.filterTodos(testTodos, { owner: todoOwner });
+      expect(filteredTodos.length).toBe(1);
+      filteredTodos.forEach(todo => {
+        expect(todo.owner.indexOf(todoOwner)).toBeGreaterThanOrEqual(0);
+      })
+    });
+
+
   });
 });
