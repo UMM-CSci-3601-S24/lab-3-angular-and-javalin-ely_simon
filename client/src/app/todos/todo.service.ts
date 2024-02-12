@@ -36,12 +36,14 @@ export class TodoService {
   filterTodos(todos: Todo[], filters: {limit?: number, status?: boolean } ): Todo[] {
     let filteredTodos = todos;
 
-    if (filters.limit) {
-      filteredTodos = filteredTodos.slice(0, filters.limit);
-    }
     if(filters.status != null) {
       filteredTodos = filteredTodos.filter(todo => todo.status === filters.status)
     }
+
+    if (filters.limit) {
+      filteredTodos = filteredTodos.slice(0, filters.limit);
+    }
+
 
     return filteredTodos;
   }
