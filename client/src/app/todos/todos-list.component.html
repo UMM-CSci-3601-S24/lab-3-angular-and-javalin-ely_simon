@@ -25,8 +25,8 @@
           <mat-form-field class="input-field">
             <mat-label>Limit Display</mat-label>
             <input matInput data-test="todoLimitInput" type="number" placeholder="Limit display"
-              min="0" max="200">
-            <mat-hint>Filtered on server</mat-hint>
+              min="0" max="200" [(ngModel)]="todoLimit" (input)="updateFilter()">
+            <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
 
         </div>

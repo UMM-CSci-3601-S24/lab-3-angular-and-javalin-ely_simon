@@ -28,6 +28,7 @@ export class TodosComponent implements OnInit, OnDestroy{
 public serverFilteredTodos: Todo[];
 public filteredTodos: Todo[];
 
+public todoLimit: number;
 public todoStatus: boolean;
 public todoOwner: string;
 public todoBodyText: string;
@@ -69,7 +70,7 @@ private ngUnsubscribe = new Subject<void>();
 
   public updateFilter() {
     this.filteredTodos = this.todoService.filterTodos(
-      this.serverFilteredTodos, { status: this.todoStatus }
+      this.serverFilteredTodos, { limit: this.todoLimit, status: this.todoStatus }
     );
   }
 

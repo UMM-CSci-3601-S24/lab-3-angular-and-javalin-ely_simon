@@ -62,8 +62,14 @@ describe('TodoService', () => {
   describe('filterTodos()', () => {
 
     it('filters by nothing', () => {
-      const filteredUsers = todoService.filterTodos(testTodos, {});
-      expect(filteredUsers.length).toBe(3);
+      const filteredTodos = todoService.filterTodos(testTodos, {});
+      expect(filteredTodos.length).toBe(3);
+    });
+
+    it('limits todos displayed', () => {
+      const filteredTodos = todoService.filterTodos(testTodos, { limit: 1 });
+      // Should only have 1 todo in array
+      expect(filteredTodos.length).toBe(1);
     });
 
     it('filters by status true', () => {

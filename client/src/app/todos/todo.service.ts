@@ -32,14 +32,18 @@ export class TodoService {
       params: httpParams,
     })
   }
-
-  filterTodos(todos: Todo[], filters: { status?: boolean } ): Todo[] {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+  filterTodos(todos: Todo[], filters: {limit?: number, status?: boolean } ): Todo[] {
     let filteredTodos = todos;
 
+    if (filters.limit) {
+      filteredTodos = filteredTodos.slice(0, filters.limit);
+    }
     if(filters.status != null) {
       filteredTodos = filteredTodos.filter(todo => todo.status === filters.status)
     }
 
     return filteredTodos;
   }
+
 }
