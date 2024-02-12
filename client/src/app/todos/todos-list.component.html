@@ -12,21 +12,18 @@
             <mat-label>Owner</mat-label>
             <input matInput data-test="todoOwnerInput" placeholder="Filter by owner"
               [(ngModel)]="todoOwner" (input)="updateFilter()">
-            <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
 
           <mat-form-field class="input-field">
             <mat-label>Contains</mat-label>
             <input matInput data-test="todoBodyTextInput" placeholder="Filter by contains"
               [(ngModel)]="todoBody" (input)="getTodosFromServer()">
-            <mat-hint>Filtered on server</mat-hint>
           </mat-form-field>
 
           <mat-form-field class="input-field">
             <mat-label>Limit Display</mat-label>
             <input matInput data-test="todoLimitInput" type="number" placeholder="Limit display"
               min="0" max="200" [(ngModel)]="todoLimit" (input)="updateFilter()">
-            <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
 
         </div>
@@ -42,7 +39,6 @@
               <mat-option value="homework">Homework</mat-option>
               <mat-option value="groceries">Groceries</mat-option>
             </mat-select>
-            <mat-hint>Filtered on server</mat-hint>
           </mat-form-field>
 
           <mat-form-field class="input-field">
@@ -52,7 +48,6 @@
               <mat-option [value]="true">Complete</mat-option>
               <mat-option [value]="false">Incomplete</mat-option>
             </mat-select>
-            <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
 
           <mat-form-field class="input-field">
@@ -64,7 +59,6 @@
               <mat-option value="status">Status</mat-option>
               <mat-option value="body">Body Text</mat-option>
             </mat-select>
-            <mat-hint>Filtered on server</mat-hint>
           </mat-form-field>
 
         </div>
@@ -85,18 +79,26 @@
             <h3 mat-subheader>Todos</h3>
             @for (todo of this.filteredTodos; track todo._id) {
               <a mat-list-item [routerLink]="['/todos', todo._id]" class="todo-list-item">
-                @if (this.todo.avatar) {
-                  <img matListItemAvatar [src]="todo.avatar" alt="Avatar for {{ todo.owner }}">
-                }
                 <span matListItemTitle mat-line class="todo-list-name">{{todo.owner}}</span>
                 @if (this.todo.status === true) {
-                  <span matListItemLine class="todo-list-status"> Complete</span>
+                  <span matListItemLine class="todo-list-status"> Complete ✅ </span>
                 }
                 @else {
-                  <span matListItemLine class="todo-list-status"> Incomplete</span>
+                  <span matListItemLine class="todo-list-status"> Incomplete ❌</span>
                 }
                 <span matListItemLine class="todo-list-bodyText"> {{todo.body}}</span>
-                <span matListItemLine class="todo-list-category"> {{todo.category}}</span>
+                @if (this.todo.category === 'groceries') {
+                  <span matListItemLine class="todo-list-status"> Groceries 🛒 </span>
+                }
+                @else if (this.todo.category === 'homework') {
+                  <span matListItemLine class="todo-list-status"> Homework 📚 </span>
+                }
+                @else if (this.todo.category === 'software design') {
+                  <span matListItemLine class="todo-list-status"> Software Design 🖥️ </span>
+                }
+                @else {
+                  <span matListItemLine class="todo-list-category"> Video Games 🎮</span>
+                }
               </a>
             }
           </mat-nav-list>
