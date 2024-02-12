@@ -33,10 +33,12 @@ export class TodoService {
     })
   }
 
-  filterTodos(todos: Todo[] ): Todo[] {
-    const filteredTodos = todos;
+  filterTodos(todos: Todo[], filters: { status?: boolean } ): Todo[] {
+    let filteredTodos = todos;
 
-
+    if(filters.status != null) {
+      filteredTodos = filteredTodos.filter(todo => todo.status === filters.status)
+    }
 
     return filteredTodos;
   }

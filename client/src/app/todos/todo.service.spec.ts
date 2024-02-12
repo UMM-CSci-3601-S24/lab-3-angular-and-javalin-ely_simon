@@ -60,10 +60,28 @@ describe('TodoService', () => {
   });
 
   describe('filterTodos()', () => {
+
     it('filters by nothing', () => {
-      const filteredUsers = todoService.filterTodos(testTodos);
+      const filteredUsers = todoService.filterTodos(testTodos, {});
       expect(filteredUsers.length).toBe(3);
     });
-  });
 
+    it('filters by status true', () => {
+      const todoStatus = true;
+      const filteredTodos = todoService.filterTodos(testTodos, { status: todoStatus });
+      expect(filteredTodos.length).toBe(2);
+      filteredTodos.forEach(todo => {
+        expect(todo.status === todoStatus);
+      })
+    });
+
+    it('filters by status false', () => {
+      const todoStatus = false;
+      const filteredTodos = todoService.filterTodos(testTodos, { status: todoStatus });
+      expect(filteredTodos.length).toBe(1);
+      filteredTodos.forEach(todo => {
+        expect(todo.status === todoStatus);
+      })
+    });
+  });
 });
