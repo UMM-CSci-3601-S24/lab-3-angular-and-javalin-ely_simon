@@ -60,10 +60,19 @@ describe('TodoService', () => {
   });
 
   describe('filterTodos()', () => {
+
     it('filters by nothing', () => {
       const filteredUsers = todoService.filterTodos(testTodos);
       expect(filteredUsers.length).toBe(3);
     });
-  });
 
+    it('filters by status', () => {
+      const todoStatus = true;
+      const filteredTodos = todoService.filterTodos(testTodos, { status: todoStatus });
+      expect(filteredTodos.length).toBe(2);
+      filteredTodos.forEach(todo => {
+        expect(todo.status === todoStatus);
+      })
+    });
+  });
 });
