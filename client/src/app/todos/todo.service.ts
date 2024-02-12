@@ -33,7 +33,7 @@ export class TodoService {
     })
   }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  filterTodos(todos: Todo[], filters: {limit?: number } ): Todo[] {
+  filterTodos(todos: Todo[], filters: {limit?: number, page?: number } ): Todo[] {
     let filteredTodos = todos;
 
     if (filters.limit) {
@@ -43,6 +43,7 @@ export class TodoService {
       }
       else {
         filteredTodos = filteredTodos.slice(0, filters.limit);
+      }
     }
 
     return filteredTodos;

@@ -29,6 +29,7 @@ public serverFilteredTodos: Todo[];
 public filteredTodos: Todo[];
 
 public todoLimit: number;
+public todoPage; number;
 public todoStatus: boolean;
 public todoOwner: string;
 public todoBodyText: string;
@@ -70,7 +71,7 @@ private ngUnsubscribe = new Subject<void>();
 
   public updateFilter() {
     this.filteredTodos = this.todoService.filterTodos(
-      this.serverFilteredTodos, { limit: this.todoLimit }
+      this.serverFilteredTodos, { limit: this.todoLimit, page: this.todoPage }
     );
   }
 
