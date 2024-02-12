@@ -11,7 +11,7 @@ export class TodoService {
   constructor(private httpClient: HttpClient) {
   }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getTodos(filters?: { status?: boolean; bodyText?: string; owner?: string; category?: string; orderBy?: string }): Observable<Todo[]> {
+  getTodos(filters?: { status?: boolean; body?: string; owner?: string; category?: string; orderBy?: string }): Observable<Todo[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
     //   if (filters.status) {
@@ -36,7 +36,7 @@ export class TodoService {
     })
   }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  filterTodos(todos: Todo[], filters: {limit?: number, status?: boolean, owner?: string} ): Todo[] {
+  filterTodos(todos: Todo[], filters: {limit?: number, status?: boolean, owner?: string } ): Todo[] {
     let filteredTodos = todos;
 
     if(filters.status != null) {

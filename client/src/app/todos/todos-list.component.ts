@@ -52,8 +52,8 @@ private ngUnsubscribe = new Subject<void>();
   getTodosFromServer(){
 
     this.todoService.getTodos({
-      orderBy: this.todoOrderBy
-      body: this.todoBody,
+      orderBy: this.todoOrderBy,
+      body: this.todoBody
     }).pipe(
       takeUntil(this.ngUnsubscribe)
     ).subscribe({
