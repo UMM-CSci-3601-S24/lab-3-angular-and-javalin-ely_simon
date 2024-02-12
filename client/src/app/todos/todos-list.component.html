@@ -11,7 +11,7 @@
           <mat-form-field class="input-field">
             <mat-label>Owner</mat-label>
             <input matInput data-test="todoOwnerInput" placeholder="Filter by owner"
-              [(ngModel)]="todoOwner">
+              [(ngModel)]="todoOwner" (input)="updateFilter()">
             <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
 
