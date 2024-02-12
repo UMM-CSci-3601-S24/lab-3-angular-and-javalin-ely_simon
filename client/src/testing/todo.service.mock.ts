@@ -10,21 +10,21 @@ export class MockTodoService extends TodoService {
       _id: 'chris_id',
       owner: 'Chris',
       status: true,
-      bodyText: 'UMM',
+      body: 'UMM',
       category: 'video games'
     },
     {
       _id: 'james_id',
       owner: 'James',
       status: false,
-      bodyText: 'sit',
+      body: 'sit',
       category: 'groceries'
     },
     {
       _id: 'bob_id',
       owner: 'Bob',
       status: true,
-      bodyText: 'dress',
+      body: 'dress',
       category: 'groceries'
     },
   ];

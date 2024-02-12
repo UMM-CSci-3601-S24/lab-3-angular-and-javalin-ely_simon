@@ -10,21 +10,21 @@ describe('TodoService', () => {
       _id: 'chris_id',
       owner: 'Chris',
       status: true,
-      bodyText: 'UMM',
+      body: 'UMM',
       category: 'video games'
     },
     {
       _id: 'james_id',
       owner: 'James',
       status: false,
-      bodyText: 'sit',
+      body: 'sit',
       category: 'groceries'
     },
     {
       _id: 'bob_id',
       owner: 'Bob',
       status: true,
-      bodyText: 'dress',
+      body: 'dress',
       category: 'groceries'
     },
   ];
@@ -49,7 +49,7 @@ describe('TodoService', () => {
 
     it('calls `api/todos` when `getTodos()` is called with no parameters', () => {
       todoService.getTodos().subscribe(
-        users => expect(users).toBe(testTodos)
+        todos => expect(todos).toBe(testTodos)
       );
 
       const req = httpTestingController.expectOne(todoService.todoUrl);
@@ -57,13 +57,84 @@ describe('TodoService', () => {
       expect(req.request.params.keys().length).toBe(0);
       req.flush(testTodos);
     });
-  });
 
-  describe('filterTodos()', () => {
-    it('filters by nothing', () => {
-      const filteredUsers = todoService.filterTodos(testTodos);
-      expect(filteredUsers.length).toBe(3);
+    describe('Calling getTodos() with parameters correctly form the HTTP request', () => {
+
+      it('correctly calls api/users with filter parameter \'category\'', () => {
+        todoService.getTodos({ orderBy: 'category' }).subscribe(
+          todos => expect(todos).toBe(testTodos)
+        )
+
+        const req = httpTestingController.expectOne(
+          (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('orderBy')
+        );
+
+        expect(req.request.method).toEqual('GET');
+        expect(req.request.params.get('orderBy')).toEqual('category');
+
+        req.flush(testTodos);
+      });
+    })
+    
+    it('correctly calls api/todos with filter parameter \'sit\'', () => {
+      todoService.getTodos({ body: 'sit' }).subscribe(
+        todos => expect(todos).toBe(testTodos)
+      );
+
+      const req = httpTestingController.expectOne(
+        (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('contains')
+      );
+
+      expect(req.request.method).toEqual('GET');
+
+      expect(req.request.params.get('contains')).toEqual('sit');
+
+      req.flush(testTodos);
     });
   });
 
+
+
+  describe('filterTodos()', () => {
+
+    it('filters by nothing', () => {
+      const filteredTodos = todoService.filterTodos(testTodos, {});
+      expect(filteredTodos.length).toBe(3);
+    });
+
+    it('limits todos displayed', () => {
+      const filteredTodos = todoService.filterTodos(testTodos, { limit: 1 });
+      // Should only have 1 todo in array
+      expect(filteredTodos.length).toBe(1);
+    });
+
+    it('filters by status true', () => {
+      const todoStatus = true;
+      const filteredTodos = todoService.filterTodos(testTodos, { status: todoStatus });
+      expect(filteredTodos.length).toBe(2);
+      filteredTodos.forEach(todo => {
+        expect(todo.status === todoStatus);
+      })
+    });
+
+    it('filters by status false', () => {
+      const todoStatus = false;
+      const filteredTodos = todoService.filterTodos(testTodos, { status: todoStatus });
+      expect(filteredTodos.length).toBe(1);
+      filteredTodos.forEach(todo => {
+        expect(todo.status === todoStatus);
+      });
+    });
+
+    it('filters by owner Bob', () => {
+      const todoOwner = 'Bob';
+      const filteredTodos = todoService.filterTodos(testTodos, { owner: todoOwner });
+      expect(filteredTodos.length).toBe(1);
+      filteredTodos.forEach(todo => {
+        expect(todo.owner.indexOf(todoOwner)).toBeGreaterThanOrEqual(0);
+      })
+    });
+
+
+  });
 });

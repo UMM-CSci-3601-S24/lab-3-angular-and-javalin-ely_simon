@@ -78,7 +78,7 @@ describe('TodosListComponent', () => {
   });
 
   it('contains a todo with bodyText "sit"', () => {
-    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.bodyText === 'sit')).toBe(true);
+    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.body === 'sit')).toBe(true);
   });
 
   it('contains two todos with category "groceries"', () => {

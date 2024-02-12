@@ -28,10 +28,12 @@ export class TodosComponent implements OnInit, OnDestroy{
 public serverFilteredTodos: Todo[];
 public filteredTodos: Todo[];
 
+public todoLimit: number;
 public todoStatus: boolean;
 public todoOwner: string;
-public todoBodyText: string;
+public todoBody: string;
 public todoCategory: string;
+public todoOrderBy: string;
 
 errMsg='';
 private ngUnsubscribe = new Subject<void>();
@@ -50,6 +52,8 @@ private ngUnsubscribe = new Subject<void>();
   getTodosFromServer(){
 
     this.todoService.getTodos({
+      orderBy: this.todoOrderBy,
+      body: this.todoBody
     }).pipe(
       takeUntil(this.ngUnsubscribe)
     ).subscribe({
@@ -69,7 +73,7 @@ private ngUnsubscribe = new Subject<void>();
 
   public updateFilter() {
     this.filteredTodos = this.todoService.filterTodos(
-      this.serverFilteredTodos,
+      this.serverFilteredTodos, { limit: this.todoLimit, status: this.todoStatus, owner: this.todoOwner }
     );
   }
 

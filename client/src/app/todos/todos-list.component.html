@@ -11,22 +11,22 @@
           <mat-form-field class="input-field">
             <mat-label>Owner</mat-label>
             <input matInput data-test="todoOwnerInput" placeholder="Filter by owner"
-              [(ngModel)]="todoOwner">
+              [(ngModel)]="todoOwner" (input)="updateFilter()">
             <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
 
           <mat-form-field class="input-field">
             <mat-label>Contains</mat-label>
             <input matInput data-test="todoBodyTextInput" placeholder="Filter by contains"
-              [(ngModel)]="todoBodyText">
-            <mat-hint>Filtered on client</mat-hint>
+              [(ngModel)]="todoBody" (input)="getTodosFromServer()">
+            <mat-hint>Filtered on server</mat-hint>
           </mat-form-field>
 
           <mat-form-field class="input-field">
             <mat-label>Limit Display</mat-label>
             <input matInput data-test="todoLimitInput" type="number" placeholder="Limit display"
-              min="0" max="200">
-            <mat-hint>Filtered on server</mat-hint>
+              min="0" max="200" [(ngModel)]="todoLimit" (input)="updateFilter()">
+            <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
 
         </div>
@@ -47,10 +47,22 @@
 
           <mat-form-field class="input-field">
             <mat-label>Status</mat-label>
-            <mat-select [(ngModel)]="todoStatus" data-test="todoStatusSelect">
+            <mat-select (selectionChange)="updateFilter()" [(ngModel)]="todoStatus" data-test="todoStatusSelect">
               <mat-option>--</mat-option>
-              <mat-option value="complete">Complete</mat-option>
-              <mat-option value="incomplete">Incomplete</mat-option>
+              <mat-option [value]="true">Complete</mat-option>
+              <mat-option [value]="false">Incomplete</mat-option>
+            </mat-select>
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Sort By</mat-label>
+            <mat-select (selectionChange)="getTodosFromServer()" [(ngModel)]="todoOrderBy" data-test="todoOrderBySelect">
+              <mat-option>--</mat-option>
+              <mat-option value="category">Category</mat-option>
+              <mat-option value="owner">Owner</mat-option>
+              <mat-option value="status">Status</mat-option>
+              <mat-option value="body">Body Text</mat-option>
             </mat-select>
             <mat-hint>Filtered on server</mat-hint>
           </mat-form-field>
@@ -76,8 +88,15 @@
                 @if (this.todo.avatar) {
                   <img matListItemAvatar [src]="todo.avatar" alt="Avatar for {{ todo.owner }}">
                 }
-                <span matListItemTitle mat-line class="todo-list-name"> {{todo.owner}} </span>
-                <span matListItemLine class="todo-list-role"> {{todo.owner}} </span>
+                <span matListItemTitle mat-line class="todo-list-name">{{todo.owner}}</span>
+                @if (this.todo.status === true) {
+                  <span matListItemLine class="todo-list-status"> Complete</span>
+                }
+                @else {
+                  <span matListItemLine class="todo-list-status"> Incomplete</span>
+                }
+                <span matListItemLine class="todo-list-bodyText"> {{todo.body}}</span>
+                <span matListItemLine class="todo-list-category"> {{todo.category}}</span>
               </a>
             }
           </mat-nav-list>
