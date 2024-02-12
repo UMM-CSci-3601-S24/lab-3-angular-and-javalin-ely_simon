@@ -33,11 +33,14 @@ export class TodoService {
     })
   }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  filterTodos(todos: Todo[], filters: {limit?: number } ): Todo[] {
+  filterTodos(todos: Todo[], filters: {limit?: number, status?: boolean } ): Todo[] {
     let filteredTodos = todos;
 
-    if (filters.limit && filters.limit < 201 && filters.limit > 0) {
+    if (filters.limit) {
       filteredTodos = filteredTodos.slice(0, filters.limit);
+    }
+    if(filters.status != null) {
+      filteredTodos = filteredTodos.filter(todo => todo.status === filters.status)
     }
 
     return filteredTodos;

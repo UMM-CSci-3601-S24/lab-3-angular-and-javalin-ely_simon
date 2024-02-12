@@ -60,6 +60,7 @@ describe('TodoService', () => {
   });
 
   describe('filterTodos()', () => {
+
     it('filters by nothing', () => {
       const filteredTodos = todoService.filterTodos(testTodos, {});
       expect(filteredTodos.length).toBe(3);
@@ -70,6 +71,23 @@ describe('TodoService', () => {
       // Should only have 1 todo in array
       expect(filteredTodos.length).toBe(1);
     });
-  });
 
+    it('filters by status true', () => {
+      const todoStatus = true;
+      const filteredTodos = todoService.filterTodos(testTodos, { status: todoStatus });
+      expect(filteredTodos.length).toBe(2);
+      filteredTodos.forEach(todo => {
+        expect(todo.status === todoStatus);
+      })
+    });
+
+    it('filters by status false', () => {
+      const todoStatus = false;
+      const filteredTodos = todoService.filterTodos(testTodos, { status: todoStatus });
+      expect(filteredTodos.length).toBe(1);
+      filteredTodos.forEach(todo => {
+        expect(todo.status === todoStatus);
+      })
+    });
+  });
 });
