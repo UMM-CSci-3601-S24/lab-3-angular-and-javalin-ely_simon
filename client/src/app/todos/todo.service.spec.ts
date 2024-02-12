@@ -77,6 +77,7 @@ describe('TodoService', () => {
 
       req.flush(testTodos);
     });
+  });
 
   describe('filterTodos()', () => {
 
@@ -106,7 +107,7 @@ describe('TodoService', () => {
       expect(filteredTodos.length).toBe(1);
       filteredTodos.forEach(todo => {
         expect(todo.status === todoStatus);
-      })
+      });
     });
   });
 });
