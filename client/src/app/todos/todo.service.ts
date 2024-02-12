@@ -36,8 +36,13 @@ export class TodoService {
   filterTodos(todos: Todo[], filters: {limit?: number } ): Todo[] {
     let filteredTodos = todos;
 
-    if (filters.limit && filters.limit < 201 && filters.limit > 0) {
-      filteredTodos = filteredTodos.slice(0, filters.limit);
+    if (filters.limit) {
+      if (filters.page) {
+        const i = filters.page*filters.limit;
+        filteredTodos = filteredTodos.slice(i, i + filters.limit);
+      }
+      else {
+        filteredTodos = filteredTodos.slice(0, filters.limit);
     }
 
     return filteredTodos;
