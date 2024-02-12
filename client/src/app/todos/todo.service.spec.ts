@@ -49,12 +49,32 @@ describe('TodoService', () => {
 
     it('calls `api/todos` when `getTodos()` is called with no parameters', () => {
       todoService.getTodos().subscribe(
-        users => expect(users).toBe(testTodos)
+        todos => expect(todos).toBe(testTodos)
       );
 
       const req = httpTestingController.expectOne(todoService.todoUrl);
       expect(req.request.method).toEqual('GET');
       expect(req.request.params.keys().length).toBe(0);
+      req.flush(testTodos);
+    });
+
+  });
+
+  describe('Calling getUsers() with parameters correctly forms the HTTP request', () => {
+
+    it('correctly calls api/todos with filter parameter \'sit\'', () => {
+      todoService.getTodos({ body: 'sit' }).subscribe(
+        todos => expect(todos).toBe(testTodos)
+      );
+
+      const req = httpTestingController.expectOne(
+        (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('contains')
+      );
+
+      expect(req.request.method).toEqual('GET');
+
+      expect(req.request.params.get('contains')).toEqual('sit');
+
       req.flush(testTodos);
     });
   });
@@ -87,7 +107,7 @@ describe('TodoService', () => {
       expect(filteredTodos.length).toBe(1);
       filteredTodos.forEach(todo => {
         expect(todo.status === todoStatus);
-      })
+      });
     });
 
     it('filters by owner Bob', () => {
