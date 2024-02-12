@@ -62,7 +62,7 @@ describe('TodoService', () => {
   describe('filterTodos()', () => {
 
     it('filters by nothing', () => {
-      const filteredUsers = todoService.filterTodos(testTodos);
+      const filteredUsers = todoService.filterTodos(testTodos, {});
       expect(filteredUsers.length).toBe(3);
     });
 
