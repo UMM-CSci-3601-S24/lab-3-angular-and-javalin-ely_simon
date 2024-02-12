@@ -32,6 +32,7 @@ public todoStatus: boolean;
 public todoOwner: string;
 public todoBodyText: string;
 public todoCategory: string;
+public todoOrderBy: string;
 
 errMsg='';
 private ngUnsubscribe = new Subject<void>();
@@ -50,6 +51,7 @@ private ngUnsubscribe = new Subject<void>();
   getTodosFromServer(){
 
     this.todoService.getTodos({
+      orderBy: this.todoOrderBy
     }).pipe(
       takeUntil(this.ngUnsubscribe)
     ).subscribe({
