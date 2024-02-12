@@ -11,21 +11,15 @@ export class TodoService {
   constructor(private httpClient: HttpClient) {
   }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getTodos(filters?: { status?: boolean; body?: string; owner?: string; category?: string; orderBy?: string }): Observable<Todo[]> {
+  getTodos(filters?: { body?: string; category?: string; orderBy?: string }): Observable<Todo[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
-    //   if (filters.status) {
-    //     httpParams = httpParams.set('status', filters.status.toString());
-    //   }
-    //   if (filters.owner) {
-    //     httpParams = httpParams.set('owner', filters.owner);
-    //   }
       if (filters.body) {
         httpParams = httpParams.set('contains', filters.body);
       }
-    //   if (filters.category) {
-    //     httpParams = httpParams.set('category', filters.category);
-    //   }
+      if (filters.category) {
+        httpParams = httpParams.set('category', filters.category);
+      }
       if (filters.orderBy) {
         httpParams = httpParams.set('orderBy', filters.orderBy);
       }

@@ -75,7 +75,7 @@ describe('TodoService', () => {
         req.flush(testTodos);
       });
     })
-    
+
     it('correctly calls api/todos with filter parameter \'sit\'', () => {
       todoService.getTodos({ body: 'sit' }).subscribe(
         todos => expect(todos).toBe(testTodos)
@@ -88,6 +88,22 @@ describe('TodoService', () => {
       expect(req.request.method).toEqual('GET');
 
       expect(req.request.params.get('contains')).toEqual('sit');
+
+      req.flush(testTodos);
+    });
+
+    it('correctly calls api/todos with filter parameter \'groceries\'', () => {
+      todoService.getTodos({ category: 'groceries' }).subscribe(
+        todos => expect(todos).toBe(testTodos)
+      );
+
+      const req = httpTestingController.expectOne(
+        (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('category')
+      );
+
+      expect(req.request.method).toEqual('GET');
+
+      expect(req.request.params.get('category')).toEqual('groceries');
 
       req.flush(testTodos);
     });
