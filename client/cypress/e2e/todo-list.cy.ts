@@ -61,7 +61,7 @@ describe('Todo list', () => {
     .get(`mat-option[value="groceries"]`).click();
 
     page.getTodoListItems().each($todo => {
-      cy.wrap($todo).find('.todo-list-category').should('contain', 'groceries');
+      cy.wrap($todo).find('.todo-list-category').should('contain', 'Groceries');
     });
 
   });
@@ -87,7 +87,7 @@ describe('Todo list', () => {
 
     page.getTodoListItems().each($todo => {
       cy.wrap($todo).find('.todo-list-status').should('contain', 'Incomplete');
-      cy.wrap($todo).find('.todo-list-category').should('contain', 'video games');
+      cy.wrap($todo).find('.todo-list-category').should('contain', 'Video Games');
       cy.wrap($todo).find('.todo-list-owner').should('contain', 'Blanche');
     });
 
