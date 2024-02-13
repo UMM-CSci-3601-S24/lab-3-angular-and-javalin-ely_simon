@@ -30,4 +30,15 @@ describe('Todo list', () => {
     );
   });
 
+  it('Should type something in the contains filter and check that it returned correct elements', () => {
+
+    cy.get('[data-test=todoBodyInput]').type('sit');
+
+
+    // (We check this two ways to show multiple ways to check this)
+    page.getTodoListItems().find('.todo-list-body').each($body =>
+      expect($body.text().toLowerCase()).to.contain('sit')
+    );
+  });
+
 });
