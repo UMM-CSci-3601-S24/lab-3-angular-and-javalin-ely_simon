@@ -24,7 +24,6 @@ describe('Todo list', () => {
       cy.wrap($todo).find('.todo-list-owner').should('contain', 'Fry');
     });
 
-    // (We check this two ways to show multiple ways to check this)
     page.getTodoListItems().find('.todo-list-owner').each($owner =>
       expect($owner.text()).to.equal('Fry')
     );
@@ -35,10 +34,17 @@ describe('Todo list', () => {
     cy.get('[data-test=todoBodyInput]').type('sit');
 
 
-    // (We check this two ways to show multiple ways to check this)
     page.getTodoListItems().find('.todo-list-body').each($body =>
       expect($body.text().toLowerCase()).to.contain('sit')
     );
+  });
+
+  it('Should type something in the owner filter and check that it returned correct elements', () => {
+
+    cy.get('[data-test=todoLimitInput]').type(('5'), {force: true});
+
+    page.getTodoListItems().should('have.lengthOf', 5);
+
   });
 
 });
