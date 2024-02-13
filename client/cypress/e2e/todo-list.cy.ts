@@ -29,6 +29,15 @@ describe('Todo list', () => {
     );
   });
 
+  it('Should type partial name in the owner filter and check that it returned correct elements', () => {
+
+    cy.get('[data-test=todoOwnerInput]').type('Fr');
+
+    page.getTodoListItems().each($todo => {
+      cy.wrap($todo).find('.todo-list-owner').should('contain', 'Fry');
+    });
+  });
+
   it('Should type something in the contains filter and check that it returned correct elements', () => {
 
     cy.get('[data-test=todoBodyInput]').type('sit');
@@ -48,7 +57,6 @@ describe('Todo list', () => {
   });
 
   it('Should select a category and check that it returned correct elements', () => {
-    // Filter for role 'viewer');
     cy.get('[data-test=todoCategorySelect]').click()
     .get(`mat-option[value="groceries"]`).click();
 
@@ -59,12 +67,28 @@ describe('Todo list', () => {
   });
 
   it('Should select a status and check that it returned correct elements', () => {
-    // Filter for role 'viewer');
     cy.get('[data-test=todoStatusSelect]').click()
     .get(`mat-option[id="true"]`).click();
 
     page.getTodoListItems().each($todo => {
       cy.wrap($todo).find('.todo-list-status').should('contain', 'Complete');
+    });
+
+  });
+
+  it('Should select a status, select a category, type an owner, and check that it returned correct elements', () => {
+    cy.get('[data-test=todoStatusSelect]').click()
+    .get(`mat-option[id="false"]`).click();
+
+    cy.get('[data-test=todoCategorySelect]').click()
+    .get(`mat-option[value="video games"]`).click();
+
+    cy.get('[data-test=todoOwnerInput]').type('Blanche');
+
+    page.getTodoListItems().each($todo => {
+      cy.wrap($todo).find('.todo-list-status').should('contain', 'Incomplete');
+      cy.wrap($todo).find('.todo-list-category').should('contain', 'video games');
+      cy.wrap($todo).find('.todo-list-owner').should('contain', 'Blanche');
     });
 
   });
