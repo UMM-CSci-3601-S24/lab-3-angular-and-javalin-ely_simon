@@ -39,12 +39,25 @@ describe('Todo list', () => {
     );
   });
 
-  it('Should type something in the owner filter and check that it returned correct elements', () => {
+  it('Should type something in the limit filter and check that it returned correct elements', () => {
 
     cy.get('[data-test=todoLimitInput]').type(('5'), {force: true});
 
     page.getTodoListItems().should('have.lengthOf', 5);
 
   });
+
+  it('Should select a category and check that it returned correct elements', () => {
+    // Filter for role 'viewer');
+    cy.get('[data-test=todoCategorySelect]').click()
+    .get(`mat-option[value="groceries"]`).click();
+
+    page.getTodoListItems().each($todo => {
+      cy.wrap($todo).find('.todo-list-category').should('contain', 'groceries');
+    });
+
+  });
+
+
 
 });
