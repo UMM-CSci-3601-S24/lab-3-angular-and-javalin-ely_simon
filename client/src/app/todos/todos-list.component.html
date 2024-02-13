@@ -88,7 +88,7 @@
                 @if (this.todo.avatar) {
                   <img matListItemAvatar [src]="todo.avatar" alt="Avatar for {{ todo.owner }}">
                 }
-                <span matListItemTitle mat-line class="todo-list-name">{{todo.owner}}</span>
+                <span matListItemTitle mat-line class="todo-list-owner">{{todo.owner}}</span>
                 @if (this.todo.status === true) {
                   <span matListItemLine class="todo-list-status"> Complete</span>
                 }
