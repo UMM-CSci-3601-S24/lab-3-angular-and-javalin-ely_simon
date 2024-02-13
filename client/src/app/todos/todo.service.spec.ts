@@ -106,28 +106,28 @@ describe('TodoService', () => {
       expect(req.request.params.get('category')).toEqual('groceries');
 
       req.flush(testTodos);
+    });
 
-      it('correctly calls api/todos with multiple filter parameters', () => {
+    it('correctly calls api/todos with multiple filter parameters', () => {
 
-        todoService.getTodos({ body: 'sit', category: 'groceries', orderBy: 'owner' }).subscribe(
-          todos => expect(todos).toBe(testTodos)
-        );
+      todoService.getTodos({ body: 'sit', category: 'groceries', orderBy: 'owner' }).subscribe(
+        todos => expect(todos).toBe(testTodos)
+      );
 
-        const req = httpTestingController.expectOne(
-          (request) => request.url.startsWith(todoService.todoUrl)
-            && request.params.has('body') && request.params.has('category') && request.params.has('orderBy')
-        );
+      const req = httpTestingController.expectOne(
+        (request) => request.url.startsWith(todoService.todoUrl)
+          && request.params.has('body') && request.params.has('category') && request.params.has('orderBy')
+      );
 
-        expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual('GET');
 
-        expect(req.request.params.get('body')).toEqual('sit');
-        expect(req.request.params.get('category')).toEqual('groceries');
-        expect(req.request.params.get('orderBy')).toEqual('owner');
+      expect(req.request.params.get('body')).toEqual('sit');
+      expect(req.request.params.get('category')).toEqual('groceries');
+      expect(req.request.params.get('orderBy')).toEqual('owner');
 
-        req.flush(testTodos);
+      req.flush(testTodos);
       });
     });
-  });
 
 
 
