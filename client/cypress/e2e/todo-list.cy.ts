@@ -58,6 +58,15 @@ describe('Todo list', () => {
 
   });
 
+  it('Should select a status and check that it returned correct elements', () => {
+    // Filter for role 'viewer');
+    cy.get('[data-test=todoStatusSelect]').click()
+    .get(`mat-option[id="true"]`).click();
 
+    page.getTodoListItems().each($todo => {
+      cy.wrap($todo).find('.todo-list-status').should('contain', 'Complete');
+    });
+
+  });
 
 });
