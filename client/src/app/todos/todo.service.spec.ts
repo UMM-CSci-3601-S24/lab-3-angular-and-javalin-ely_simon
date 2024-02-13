@@ -115,13 +115,12 @@ describe('TodoService', () => {
       );
 
       const req = httpTestingController.expectOne(
-        (request) => request.url.startsWith(todoService.todoUrl)
-          && request.params.has('body') && request.params.has('category') && request.params.has('orderBy')
+        (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('contains') && request.params.has('category') && request.params.has('orderBy')
       );
 
       expect(req.request.method).toEqual('GET');
 
-      expect(req.request.params.get('body')).toEqual('sit');
+      expect(req.request.params.get('contains')).toEqual('sit');
       expect(req.request.params.get('category')).toEqual('groceries');
       expect(req.request.params.get('orderBy')).toEqual('owner');
 
